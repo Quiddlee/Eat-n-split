@@ -1,13 +1,13 @@
 import FriendList from './FriendList/FriendList';
 import SplitBillForm from './Forms/SplitBillForm';
 import { useState } from 'react';
-import INITIAL_FRIENDS from '../config';
+import { INITIAL_FRIENDS, WHO_PAY_DEFAULT_VAL } from '../config';
 
 export default function App() {
   const [openedBill, setOpenedBill] = useState(null);
   const [billVal, setBillVal] = useState('');
   const [expenseVal, setExpenseVal] = useState('');
-  const [whoPay, setWhoPay] = useState('You');
+  const [whoPay, setWhoPay] = useState(WHO_PAY_DEFAULT_VAL);
 
   const friendExpense = +billVal - +expenseVal;
   const openedBillFriendName = INITIAL_FRIENDS.find(

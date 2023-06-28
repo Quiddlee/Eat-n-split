@@ -1,5 +1,5 @@
 import ListItem from './ListItem';
-import INITIAL_FRIENDS from '../../config';
+import { INITIAL_FRIENDS } from '../../config';
 import Button from '../Button';
 
 export default function FriendList({ onBillOpen, openedBill }) {

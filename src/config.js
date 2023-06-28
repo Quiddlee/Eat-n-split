@@ -1,4 +1,4 @@
-const INITIAL_FRIENDS = [
+export const INITIAL_FRIENDS = [
   {
     id: 118836,
     name: 'Clark',
@@ -19,4 +19,4 @@ const INITIAL_FRIENDS = [
   },
 ];
 
-export default INITIAL_FRIENDS;
+export const WHO_PAY_DEFAULT_VAL = 'You';
