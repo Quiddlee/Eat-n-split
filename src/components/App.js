@@ -1,9 +1,13 @@
 import FriendList from './FriendList/FriendList';
-import SplitBillForm from './SplitBillForm';
+import SplitBillForm from './Forms/SplitBillForm';
 import { useState } from 'react';
+import INITIAL_FRIENDS from '../config';
 
 export default function App() {
   const [openedBill, setOpenedBill] = useState(null);
+  const openedBillFriendName = INITIAL_FRIENDS.find(
+    ({ id }) => id === openedBill,
+  )?.name;
 
   function handleOpenedBill(id) {
     if (openedBill === id) return setOpenedBill(null);
@@ -13,7 +17,7 @@ export default function App() {
   return (
     <main className="app">
       <FriendList onBillOpen={handleOpenedBill} openedBill={openedBill} />
-      <SplitBillForm />
+      {openedBill && <SplitBillForm friendName={openedBillFriendName} />}
     </main>
   );
 }
