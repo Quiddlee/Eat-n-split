@@ -11,7 +11,7 @@ export default function App() {
   const [whoPay, setWhoPay] = useState(WHO_PAY_DEFAULT_VAL);
   const [isAddFriendOpen, setIsAddFriendOpen] = useState(false);
 
-  const friendExpense = +billVal - +expenseVal;
+  const friendExpense = Number(billVal) - Number(expenseVal);
   const openedBillFriendName = userData.find(
     ({ id }) => id === openedBill,
   )?.name;
@@ -24,20 +24,33 @@ export default function App() {
     return newVal !== '' && !Number(newVal);
   }
 
+  /**
+   * @param newVal {string}
+   */
   function handleBillVal(newVal) {
     if (valIsNotNumber(newVal)) return;
     setBillVal(newVal);
   }
 
+  /**
+   * @param newVal {string}
+   */
   function handleExpenseVal(newVal) {
     if (Number(newVal) > billVal || valIsNotNumber(newVal)) return;
     setExpenseVal(Math.abs(newVal));
   }
 
+  /**
+   * @param val {number}
+   */
   function handleWhoPay(val) {
     setWhoPay(val);
   }
 
+  /**
+   * @param id {number}
+   * @returns {() => void}
+   */
   function handleOpenedBill(id) {
     if (openedBill === id) return setOpenedBill(null);
     setOpenedBill(id);
