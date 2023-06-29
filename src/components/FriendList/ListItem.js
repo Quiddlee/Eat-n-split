@@ -1,4 +1,10 @@
-export default function ListItem({ data: { name, image, balance }, children }) {
+import Button from '../Button';
+
+export default function ListItem({
+  data: { id, name, image, balance },
+  openedBill,
+  onBillOpen,
+}) {
   return (
     <li>
       <img src={image} alt={`Friend ${name}`} />
@@ -16,7 +22,9 @@ export default function ListItem({ data: { name, image, balance }, children }) {
         </p>
       )}
 
-      {children}
+      <Button onClick={onBillOpen.bind(null, id)}>
+        {openedBill === id ? 'Close' : 'Select'}
+      </Button>
     </li>
   );
 }

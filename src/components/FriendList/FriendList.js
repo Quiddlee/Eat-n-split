@@ -14,18 +14,23 @@ export default function FriendList({
     <article className="sidebar">
       <ul>
         {friendData.map((data) => (
-          <ListItem key={data.id} id={data.id} data={data}>
-            <Button onClick={onBillOpen.bind(null, data.id)}>
-              {openedBill === data.id ? 'Close' : 'Select'}
-            </Button>
-          </ListItem>
+          <ListItem
+            key={data.id}
+            id={data.id}
+            data={data}
+            openedBill={openedBill}
+            onBillOpen={onBillOpen}
+          />
         ))}
       </ul>
+
       {isAddFriendOpen && (
         <AddFriendForm
           onOpenAddFriendForm={onOpenAddFriendForm}
-          onAddNewUser={onAddNewUser}></AddFriendForm>
+          onAddNewUser={onAddNewUser}
+        />
       )}
+
       <Button onClick={onOpenAddFriendForm}>
         {isAddFriendOpen ? 'Close' : 'Add friend'}
       </Button>
