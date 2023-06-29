@@ -9,9 +9,17 @@ export default function SplitBillForm({
   onBillVal,
   onExpenseVal,
   onWhoPay,
+  onBillSubmit,
+  onResetForm,
 }) {
+  function handleSubmitForm(e) {
+    e.preventDefault();
+    onResetForm();
+    onBillSubmit();
+  }
+
   return (
-    <form className="form-split-bill">
+    <form className="form-split-bill" onSubmit={(e) => handleSubmitForm(e)}>
       <h2>Split a bill with {friendName}</h2>
 
       <label>💰 Bill value</label>

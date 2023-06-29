@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { INITIAL_FRIENDS, WHO_PAY_DEFAULT_VAL } from '../config';
 
 export default function App() {
-  const [friendData, setFriendsData] = useState(INITIAL_FRIENDS);
+  const [userData, setUserData] = useState(INITIAL_FRIENDS);
   const [openedBill, setOpenedBill] = useState(null);
   const [billVal, setBillVal] = useState('');
   const [expenseVal, setExpenseVal] = useState('');
   const [whoPay, setWhoPay] = useState(WHO_PAY_DEFAULT_VAL);
 
   const friendExpense = +billVal - +expenseVal;
-  const openedBillFriendName = INITIAL_FRIENDS.find(
+  const openedBillFriendName = userData.find(
     ({ id }) => id === openedBill,
   )?.name;
 
@@ -42,10 +42,34 @@ export default function App() {
     setOpenedBill(id);
   }
 
+  function handleUpdateUserExpense() {
+    setUserData((data) => {
+      const newData = structuredClone(data);
+
+      newData.forEach((friend) => {
+        if (friend.id !== openedBill) return;
+
+        if (whoPay === WHO_PAY_DEFAULT_VAL) {
+          friend.balance = friend.balance + friendExpense;
+        } else {
+          friend.balance = friend.balance - expenseVal;
+        }
+      });
+
+      return newData;
+    });
+  }
+
+  function handleResetForm() {
+    setBillVal('');
+    setExpenseVal('');
+    setWhoPay(WHO_PAY_DEFAULT_VAL);
+  }
+
   return (
     <main className="app">
       <FriendList
-        friendData={friendData}
+        friendData={userData}
         onBillOpen={handleOpenedBill}
         openedBill={openedBill}
       />
@@ -59,6 +83,8 @@ export default function App() {
           onExpenseVal={handleExpenseVal}
           onWhoPay={handleWhoPay}
           friendName={openedBillFriendName}
+          onBillSubmit={handleUpdateUserExpense}
+          onResetForm={handleResetForm}
         />
       )}
     </main>
