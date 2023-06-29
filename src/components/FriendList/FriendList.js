@@ -1,7 +1,15 @@
 import ListItem from './ListItem';
 import Button from '../Button';
+import AddFriendForm from '../Forms/AddFriendForm';
 
-export default function FriendList({ friendData, onBillOpen, openedBill }) {
+export default function FriendList({
+  friendData,
+  onBillOpen,
+  openedBill,
+  isAddFriendOpen,
+  onOpenAddFriendForm,
+  onAddNewUser,
+}) {
   return (
     <article className="sidebar">
       <ul>
@@ -13,6 +21,14 @@ export default function FriendList({ friendData, onBillOpen, openedBill }) {
           </ListItem>
         ))}
       </ul>
+      {isAddFriendOpen && (
+        <AddFriendForm
+          onOpenAddFriendForm={onOpenAddFriendForm}
+          onAddNewUser={onAddNewUser}></AddFriendForm>
+      )}
+      <Button onClick={onOpenAddFriendForm}>
+        {isAddFriendOpen ? 'Close' : 'Add friend'}
+      </Button>
     </article>
   );
 }

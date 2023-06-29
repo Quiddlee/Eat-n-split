@@ -9,6 +9,7 @@ export default function App() {
   const [billVal, setBillVal] = useState('');
   const [expenseVal, setExpenseVal] = useState('');
   const [whoPay, setWhoPay] = useState(WHO_PAY_DEFAULT_VAL);
+  const [isAddFriendOpen, setIsAddFriendOpen] = useState(false);
 
   const friendExpense = +billVal - +expenseVal;
   const openedBillFriendName = userData.find(
@@ -66,12 +67,31 @@ export default function App() {
     setWhoPay(WHO_PAY_DEFAULT_VAL);
   }
 
+  function handleOpenAddFriendForm() {
+    setIsAddFriendOpen((currState) => !currState);
+  }
+
+  /**
+   * @param name {string}
+   * @param image {string}
+   */
+  function handleAddNewUser(name, image) {
+    setUserData((data) => {
+      const newData = structuredClone(data);
+      newData.push({ id: Date.now(), name, image, balance: 0 });
+      return newData;
+    });
+  }
+
   return (
     <main className="app">
       <FriendList
         friendData={userData}
         onBillOpen={handleOpenedBill}
         openedBill={openedBill}
+        isAddFriendOpen={isAddFriendOpen}
+        onOpenAddFriendForm={handleOpenAddFriendForm}
+        onAddNewUser={handleAddNewUser}
       />
       {openedBill && (
         <SplitBillForm

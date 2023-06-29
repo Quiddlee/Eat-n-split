@@ -20,3 +20,5 @@ export const INITIAL_FRIENDS = [
 ];
 
 export const WHO_PAY_DEFAULT_VAL = 'You';
+
+export const RANDOM_AVATAR_URL = 'https://i.pravatar.cc/48';
