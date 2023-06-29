@@ -76,7 +76,7 @@ export default function App() {
     });
   }
 
-  function handleResetForm() {
+  function handleResetBillForm() {
     setBillVal('');
     setExpenseVal('');
     setWhoPay(WHO_PAY_DEFAULT_VAL);
@@ -87,15 +87,16 @@ export default function App() {
   }
 
   /**
-   * @param name {string}
-   * @param image {string}
+   * @param newUser {{
+   *        id: string,
+   *        friendNameVal: string,
+   *        imageUrlVal: string,
+   *        balance: number,
+   *     }}
    */
-  function handleAddNewUser(name, image) {
-    setUserData((data) => {
-      const newData = structuredClone(data);
-      newData.push({ id: Date.now(), name, image, balance: 0 });
-      return newData;
-    });
+  function handleAddNewUser(newUser) {
+    setUserData((users) => [...users, newUser]);
+    handleOpenAddFriendForm();
   }
 
   return (
@@ -107,12 +108,7 @@ export default function App() {
           openedBill={openedBill}
         />
 
-        {isAddFriendOpen && (
-          <AddFriendForm
-            onOpenAddFriendForm={handleOpenAddFriendForm}
-            onAddNewUser={handleAddNewUser}
-          />
-        )}
+        {isAddFriendOpen && <AddFriendForm onAddNewUser={handleAddNewUser} />}
 
         <Button onClick={handleOpenAddFriendForm}>
           {isAddFriendOpen ? 'Close' : 'Add friend'}
@@ -130,7 +126,7 @@ export default function App() {
           onWhoPay={handleWhoPay}
           friendName={openedBillFriendName}
           onBillSubmit={handleUpdateUserExpense}
-          onResetForm={handleResetForm}
+          onResetForm={handleResetBillForm}
         />
       )}
     </main>
