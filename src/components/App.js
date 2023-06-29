@@ -56,6 +56,7 @@ export default function App() {
   function handleOpenedBill(id) {
     if (openedBill === id) return setOpenedBill(null);
     setOpenedBill(id);
+    setIsAddFriendOpen(false);
   }
 
   function handleUpdateUserExpense() {
