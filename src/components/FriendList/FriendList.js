@@ -1,39 +1,17 @@
 import ListItem from './ListItem';
-import Button from '../Button';
-import AddFriendForm from '../Forms/AddFriendForm';
 
-export default function FriendList({
-  friendData,
-  onBillOpen,
-  openedBill,
-  isAddFriendOpen,
-  onOpenAddFriendForm,
-  onAddNewUser,
-}) {
+export default function FriendList({ friendData, onBillOpen, openedBill }) {
   return (
-    <article className="sidebar">
-      <ul>
-        {friendData.map((data) => (
-          <ListItem
-            key={data.id}
-            id={data.id}
-            data={data}
-            openedBill={openedBill}
-            onBillOpen={onBillOpen}
-          />
-        ))}
-      </ul>
-
-      {isAddFriendOpen && (
-        <AddFriendForm
-          onOpenAddFriendForm={onOpenAddFriendForm}
-          onAddNewUser={onAddNewUser}
+    <ul>
+      {friendData.map((data) => (
+        <ListItem
+          key={data.id}
+          id={data.id}
+          data={data}
+          openedBill={openedBill}
+          onBillOpen={onBillOpen}
         />
-      )}
-
-      <Button onClick={onOpenAddFriendForm}>
-        {isAddFriendOpen ? 'Close' : 'Add friend'}
-      </Button>
-    </article>
+      ))}
+    </ul>
   );
 }

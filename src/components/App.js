@@ -2,6 +2,8 @@ import FriendList from './FriendList/FriendList';
 import SplitBillForm from './Forms/SplitBillForm';
 import { useState } from 'react';
 import { INITIAL_FRIENDS, WHO_PAY_DEFAULT_VAL } from '../config';
+import Button from './Button';
+import AddFriendForm from './Forms/AddFriendForm';
 
 export default function App() {
   const [userData, setUserData] = useState(INITIAL_FRIENDS);
@@ -98,14 +100,25 @@ export default function App() {
 
   return (
     <main className="app">
-      <FriendList
-        friendData={userData}
-        onBillOpen={handleOpenedBill}
-        openedBill={openedBill}
-        isAddFriendOpen={isAddFriendOpen}
-        onOpenAddFriendForm={handleOpenAddFriendForm}
-        onAddNewUser={handleAddNewUser}
-      />
+      <aside className="sidebar">
+        <FriendList
+          friendData={userData}
+          onBillOpen={handleOpenedBill}
+          openedBill={openedBill}
+        />
+
+        {isAddFriendOpen && (
+          <AddFriendForm
+            onOpenAddFriendForm={handleOpenAddFriendForm}
+            onAddNewUser={handleAddNewUser}
+          />
+        )}
+
+        <Button onClick={handleOpenAddFriendForm}>
+          {isAddFriendOpen ? 'Close' : 'Add friend'}
+        </Button>
+      </aside>
+
       {openedBill && (
         <SplitBillForm
           whoPay={whoPay}
