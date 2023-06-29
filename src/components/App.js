@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { INITIAL_FRIENDS, WHO_PAY_DEFAULT_VAL } from '../config';
 
 export default function App() {
+  const [friendData, setFriendsData] = useState(INITIAL_FRIENDS);
   const [openedBill, setOpenedBill] = useState(null);
   const [billVal, setBillVal] = useState('');
   const [expenseVal, setExpenseVal] = useState('');
@@ -43,7 +44,11 @@ export default function App() {
 
   return (
     <main className="app">
-      <FriendList onBillOpen={handleOpenedBill} openedBill={openedBill} />
+      <FriendList
+        friendData={friendData}
+        onBillOpen={handleOpenedBill}
+        openedBill={openedBill}
+      />
       {openedBill && (
         <SplitBillForm
           whoPay={whoPay}
