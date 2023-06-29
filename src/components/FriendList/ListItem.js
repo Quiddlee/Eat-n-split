@@ -6,7 +6,7 @@ export default function ListItem({
   onBillOpen,
 }) {
   return (
-    <li>
+    <li className={openedBill === id && 'selected'}>
       <img src={image} alt={`Friend ${name}`} />
       <h3>{name}</h3>
 
