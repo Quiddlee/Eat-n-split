@@ -13,7 +13,7 @@ export default function App() {
   const [whoPay, setWhoPay] = useState(WHO_PAY_DEFAULT_VAL);
   const [isAddFriendOpen, setIsAddFriendOpen] = useState(false);
 
-  const friendExpense = Number(billVal) - Number(expenseVal);
+  const friendExpense = Number(billVal) - Number(expenseVal) || '';
   const openedBillFriendName = userData.find(
     ({ id }) => id === openedBill,
   )?.name;
