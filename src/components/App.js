@@ -37,6 +37,8 @@ export default function App() {
 
       return newData;
     });
+
+    setOpenedBill(null);
   }
 
   function handleOpenAddFriendForm() {
