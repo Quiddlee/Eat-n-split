@@ -8,46 +8,11 @@ import AddFriendForm from './Forms/AddFriendForm';
 export default function App() {
   const [userData, setUserData] = useState(INITIAL_FRIENDS);
   const [openedBill, setOpenedBill] = useState(null);
-  const [billVal, setBillVal] = useState('');
-  const [expenseVal, setExpenseVal] = useState('');
-  const [whoPay, setWhoPay] = useState(WHO_PAY_DEFAULT_VAL);
   const [isAddFriendOpen, setIsAddFriendOpen] = useState(false);
 
-  const friendExpense = Number(billVal) - Number(expenseVal) || '';
   const openedBillFriendName = userData.find(
     ({ id }) => id === openedBill,
   )?.name;
-
-  /**
-   * @param newVal {string}
-   * @returns {boolean}
-   */
-  function valIsNotNumber(newVal) {
-    return newVal !== '' && !Number(newVal);
-  }
-
-  /**
-   * @param newVal {string}
-   */
-  function handleBillVal(newVal) {
-    if (valIsNotNumber(newVal)) return;
-    setBillVal(newVal);
-  }
-
-  /**
-   * @param newVal {string}
-   */
-  function handleExpenseVal(newVal) {
-    if (Number(newVal) > billVal || valIsNotNumber(newVal)) return;
-    setExpenseVal(Math.abs(newVal));
-  }
-
-  /**
-   * @param val {number}
-   */
-  function handleWhoPay(val) {
-    setWhoPay(val);
-  }
 
   /**
    * @param id {number}
@@ -59,7 +24,12 @@ export default function App() {
     setIsAddFriendOpen(false);
   }
 
-  function handleUpdateUserExpense() {
+  /**
+   * @param whoPay {string}
+   * @param friendExpense {number}
+   * @param expenseVal {number}
+   */
+  function handleUpdateUserExpense(whoPay, friendExpense, expenseVal) {
     setUserData((data) => {
       const newData = structuredClone(data);
 
@@ -75,12 +45,6 @@ export default function App() {
 
       return newData;
     });
-  }
-
-  function handleResetBillForm() {
-    setBillVal('');
-    setExpenseVal('');
-    setWhoPay(WHO_PAY_DEFAULT_VAL);
   }
 
   function handleOpenAddFriendForm() {
@@ -118,16 +82,9 @@ export default function App() {
 
       {openedBill && (
         <SplitBillForm
-          whoPay={whoPay}
-          billVal={billVal}
-          friendExpense={friendExpense}
-          expenseVal={expenseVal}
-          onBillVal={handleBillVal}
-          onExpenseVal={handleExpenseVal}
-          onWhoPay={handleWhoPay}
+          key={openedBillFriendName}
           friendName={openedBillFriendName}
           onBillSubmit={handleUpdateUserExpense}
-          onResetForm={handleResetBillForm}
         />
       )}
     </main>
