@@ -1,7 +1,7 @@
 import FriendList from './FriendList/FriendList';
 import SplitBillForm from './Forms/SplitBillForm';
 import { useState } from 'react';
-import { INITIAL_FRIENDS, WHO_PAY_DEFAULT_VAL } from '../config';
+import { INITIAL_FRIENDS } from '../config';
 import Button from './Button';
 import AddFriendForm from './Forms/AddFriendForm';
 
@@ -25,22 +25,14 @@ export default function App() {
   }
 
   /**
-   * @param whoPay {string}
-   * @param friendExpense {number}
-   * @param expenseVal {number}
+   * @param expense {number}
    */
-  function handleUpdateUserExpense(whoPay, friendExpense, expenseVal) {
+  function handleUpdateUserExpense(expense) {
     setUserData((data) => {
       const newData = structuredClone(data);
 
       newData.forEach((friend) => {
-        if (friend.id !== openedBill) return;
-
-        if (whoPay === WHO_PAY_DEFAULT_VAL) {
-          friend.balance = friend.balance + friendExpense;
-        } else {
-          friend.balance = friend.balance - expenseVal;
-        }
+        if (friend.id === openedBill) friend.balance = friend.balance + expense;
       });
 
       return newData;

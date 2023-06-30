@@ -22,7 +22,9 @@ export default function SplitBillForm({ friendName, onBillSubmit }) {
   function handleSubmitForm(e) {
     e.preventDefault();
     handleResetBillForm();
-    onBillSubmit(whoPay, friendExpenseVal, expenseVal);
+    onBillSubmit(
+      whoPay === WHO_PAY_DEFAULT_VAL ? friendExpenseVal : -expenseVal,
+    );
   }
 
   /**
